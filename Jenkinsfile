@@ -17,7 +17,7 @@ pipeline {
                 sh 'docker container run -d -p 8082:80 --name phpProj php-proj-image'
             }
         }
-        stages('CURL Verify') {
+        stage('CURL Verify') {
             steps {
                 sh 'curl http://slave:8082'
             }
