@@ -1,6 +1,6 @@
 pipeline {
     agent {label 'slave-agent'}
-    
+
     stages {
         stage('Clone Repo') {
             steps {
@@ -13,9 +13,10 @@ pipeline {
             }
         }
         stage('Build Container') {
-            steps {
-                sh 'docker container run -d -p 8082:80 --name phpProj php-proj-image'
-            }
+			steps {
+				sh 'docker ps -q --filter "name=phpProj" | grep -q . && docker stop phpProj && docker rm -fv phpProj || true'
+				sh 'docker container run -d -p 8082:80 --name phpProj php-proj-image'
+			}
         }
         stage('CURL Verify') {
             steps {
@@ -24,3 +25,4 @@ pipeline {
         }
     }
 }
+
