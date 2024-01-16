@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: php-proj-deployment
+  name: php-proj-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: php-proj-deployment
+  template:
+    metadata:
+      labels:
+        app: php-proj-deployment
+    spec:
+      containers:
+      - image: dcchaudhary1983/cert-project-1
+        name: php-proj-container
